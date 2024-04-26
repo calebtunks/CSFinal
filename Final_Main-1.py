@@ -6,18 +6,21 @@ import Final_Project
 # STEP1 : Create an instance of class PasswordManager with the name 'Student' and the master password 'FINAL'.
 # Assign this to variable name user_1
 # Add your code for STEP1 below this line
+user_1 = Final_Project.PasswordManager('Student', 'FINAL')
 
 
 
 # STEP2: Open ‘company.csv’ file in variable filename.
 # Add your code for STEP2 below this line
-
+with open('company-1.csv', 'r') as filename:
 
 
 # STEP3: Read the data from the ‘company.csv’ file one company name at a time
 # and process each company name to get rid of leading or trailing characters.
 # Add your code for STEP3 below this line
-
+    for line in filename:
+        x=line.strip()
+        
 
 
 # STEP4: Add company login information for each company name from the ‘company.csv’ file
@@ -27,13 +30,14 @@ import Final_Project
 # You must‘FINAL’as the argument for the parameter master_pass.
 # You should not pass any argument for the parameter criteria.
 # Add your code for STEP4 below this line
-
-
+        user_1.add_data(x, user_1, 'FINAL')
+filename.close()
 
 # STEP5: Change the password for the company name ‘Costco Wholesale Corporation’ to ‘costco_password’.
 # You must use the change_password() method for this with appropriate arguments being passed.
 # You must pass ‘FINAL’ as the argument for the parameter master_pass.
 # Add your code for STEP5 below this line
+user_1.change_password('Costco Wholesale Corporation', 'FINAL', 'costco_password')
 
 
 
@@ -41,11 +45,17 @@ import Final_Project
 # You must use the remove_comp() method for this by passing appropriate arguments
 # You must pass ‘FINAL’ as the argument for the parameter master_pass.
 # Add your code for STEP6 below this line
-
+z=0
+for company in user_1.get_comp_list():
+    user_1.remove_comp(company,'FINAL')
+    z+=1
+    if z == 5:
+        break
 
 # STEP7: Open a file named ‘password_file.csv’ in writing mode.
 # Add your code for STEP7 below this line
-
+with open('password_file.csv', 'w') as m:
+    
 
 
 # STEP8: Using the appropriate methods defined in class PasswordManager, write in file ‘password_file.csv’ such as
@@ -55,3 +65,8 @@ import Final_Project
 # You must use get_comp_info() to pull the username and password for each company name  to be written in ‘password_file.csv’.
 # You must pass ‘FINAL’ as an argument for get_comp_info() along with other appropriate arguments.
 # Add your code for STEP8 below this line
+    for company in user_1.get_comp_list():
+        m.write('www.' + str(company.replace(' ','').replace(',','').replace('.','').lower()) + '.com' +', ' +'user_1' + ', ' +user_1.get_comp_info(company,'FINAL')[1] + '\n')
+        
+        
+m.close()
